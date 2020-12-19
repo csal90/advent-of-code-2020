@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,22 +12,26 @@ import java.util.regex.Pattern;
 
 public class day2 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         int ans = 0;
-        while (sc.hasNext()) {
-            String x = sc.nextLine();
-            Pattern p = Pattern.compile("([0-9]+)-([0-9]+) ([a-z]): ([a-z]+)");
-            Matcher m = p.matcher(x);
-            String lower = "", upper = "", letter = "", password = "";
-            while (m.find()) {
-                lower = m.group(1);
-                upper = m.group(2);
-                letter = m.group(3);
-                password = m.group(4);
-            }
-            ans += isValid(Integer.parseInt(lower), Integer.parseInt(upper), letter, password);
+        try {
+			Scanner scanner = new Scanner(new File("inputs/day2.txt"));
+			while (scanner.hasNextLine()) {
+                String str = scanner.nextLine();
+                Pattern p = Pattern.compile("([0-9]+)-([0-9]+) ([a-z]): ([a-z]+)");
+                Matcher m = p.matcher(str);
+                String lower = "", upper = "", letter = "", password = "";
+                while (m.find()) {
+                    lower = m.group(1);
+                    upper = m.group(2);
+                    letter = m.group(3);
+                    password = m.group(4);
+                }
+                ans += isValid(Integer.parseInt(lower), Integer.parseInt(upper), letter, password);
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
         }
-        sc.close();
         System.out.println(ans);
     }
 

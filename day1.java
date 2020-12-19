@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class day1 {
@@ -10,15 +12,18 @@ public class day1 {
     1456
     */
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
         List<Integer> lst = new ArrayList<>();
-        // functions are modular for target (although for this problem it will always be 2020)
-        while (s.hasNextInt()) {
-            lst.add(s.nextInt());
+        try {
+			Scanner scanner = new Scanner(new File("inputs/day1.txt"));
+			while (scanner.hasNextLine()) {
+                lst.add(Integer.parseInt(scanner.nextLine()));
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
         }
         System.out.println(DayOneP1(lst));
         System.out.println(DayOneP2(lst));
-        s.close();
     }
 
     public static int DayOneP2(List<Integer> nums) {
